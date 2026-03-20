@@ -3,15 +3,21 @@ pipeline {
 
     stages {
 
+        stage('Clone Repo') {
+            steps {
+                git 'https://github.com/vanshchoudhary108/devops-cicd-project.git'
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t devops-site -f docker/Dockerfile .'
+                sh 'docker build -t devops-site -f docker/Dockerfile .'
             }
         }
 
         stage('Run Container') {
             steps {
-                bat 'docker run -d -p 8082:80 devops-site'
+                sh 'docker run -d -p 8082:80 devops-site'
             }
         }
 
